@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Return completed</title>
+<style>
+  /* ---------------------------------------------------------------
+     Tokens pulled directly from Figma dev-mode CSS export
+     (node-id 11862-9620, "Return completed" success screen).
+     'Helvetica for Target' isn't installed locally, so we fall back
+     to system sans-serif; everything else (sizes, colors, spacing,
+     radii) matches the spec exactly.
+     --------------------------------------------------------------- */
+  :root {
+    --font: 'Helvetica for Target', Helvetica, 'SF Pro', -apple-system,
+      BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+
+    --color-bg: #ffffff;
+    --color-heading: #333333;
+    --color-subhead: #666666;
+    --color-red: #cc0000;
+    --color-card-bg: #f7f7f7;
+    --color-card-divider: #d6d6d6;
+    --color-link: #2758b9;
+    --color-yellow: #ffc957;
+
+    /* wallet illustration palette */
+    --wallet-dark: #7a440e;
+    --wallet-mid: #ad6926;
+    --cash-back2: #738033;
+    --cash-back1: #89993d;
+    --cash-front-a: #a1b347;
+    --cash-front-b: #b2c74f;
+    --coin-light: #e6dbd8;
+    --coin-mid: #d7c9c4;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html, body {
+    margin: 0;
+    height: 100%;
+    background: #e5e5e5;
+    font-family: var(--font);
+  }
+
+  body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+  }
+
+  .frame {
+    position: relative;
+    width: 393px;
+    height: 852px;
+    background: var(--color-bg);
+    border-radius: 40px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+  }
+
+  /* ---------------- status bar + header (native, 102px) --------- */
+
+  .status-bar {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 393px;
+    height: 54px;
+    display: flex;
+    align-items: center;
+    padding: 0 24px;
+    justify-content: space-between;
+  }
+
+  .status-bar .time {
+    font-size: 17px;
+    font-weight: 500;
+    color: #000000;
+  }
+
+  .status-icons {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .nav-header {
+    position: absolute;
+    left: 0;
+    top: 54px;
+    width: 393px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .nav-side {
+    width: 40px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    padding: 12px 0;
+  }
+
+  .nav-side.leading {
+    padding-left: 16px;
+  }
+
+  .nav-side.trailing {
+    padding-right: 16px;
+    justify-content: flex-end;
+  }
+
+  .icon-button {
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* ---------------- title + subhead ------------------------------ */
+
+  .content-heading {
+    position: absolute;
+    width: 353px;
+    left: 20px;
+    top: 110px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .content-heading h1 {
+    margin: 0;
+    width: 353px;
+    height: 36px;
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 130%;
+    text-align: center;
+    color: var(--color-heading);
+  }
+
+  .content-heading p {
+    margin: 0;
+    width: 353px;
+    height: 20px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 140%;
+    text-align: center;
+    color: var(--color-subhead);
+  }
+
+  /* ---------------- illustration ---------------------------------- */
+
+  .illustration {
+    position: absolute;
+    width: 360px;
+    height: 360px;
+    left: calc(50% - 180px + 0.5px);
+    top: 158px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* ---------------- description text ------------------------------ */
+
+  .description {
+    position: absolute;
+    width: 312px;
+    left: calc(50% - 156px + 0.5px);
+    top: 546px;
+    margin: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 140%;
+    text-align: center;
+    color: var(--color-heading);
+  }
+
+  /* ---------------- refund card ------------------------------------ */
+
+  .refund-card {
+    position: absolute;
+    width: 353px;
+    left: 20px;
+    top: 617px;
+  }
+
+  .refund-card__top {
+    background: var(--color-card-bg);
+    border-radius: 16px 16px 0 0;
+    padding: 16px;
+  }
+
+  .refund-card__row {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .refund-card__label {
+    flex-grow: 1;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 140%;
+    color: var(--color-heading);
+  }
+
+  .refund-card__amount {
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 130%;
+    text-align: right;
+    color: var(--color-heading);
+  }
+
+  .refund-card__payment {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 12px;
+  }
+
+  .refund-card__payment span {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 140%;
+    color: var(--color-subhead);
+  }
+
+  .refund-card__bottom {
+    background: var(--color-card-bg);
+    border-top: 0.5px solid var(--color-card-divider);
+    border-radius: 0 0 16px 16px;
+    padding: 12px 20px 16px;
+  }
+
+  .link-button {
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 140%;
+    color: var(--color-link);
+    cursor: pointer;
+    text-align: left;
+  }
+
+  /* ---------------- wallet flap open animation ------------------------ */
+
+  /* The TOP flap of the wallet (the dark brown back panel). In the
+     source artwork it's already open/upright; here it starts folded
+     shut — snapped down over the FRONT of the pocket — and flips up
+     to open.
+
+     To read as flexible material (leather/fabric) rather than one
+     rigid card swinging on a door hinge, the flap is split into three
+     "joints" (clipped bands of the same path) NESTED inside one
+     another — each joint hinges at its OWN boundary line and inherits
+     its parent's rotation, like a chain of hinges. This keeps the
+     bands perfectly seamless at every frame (unlike rotating three
+     independent bands around a single shared axis, which opens visible
+     gaps/kinks at the joint lines). The crease straightens out
+     progressively from the hinge (bottom, nearest the snap) up to the
+     tip (top), in a staggered cascade.
+
+     SVG has no true z-depth, only paint order, so the whole folding
+     assembly is painted AFTER the pocket front (so while folded it
+     appears in front of the pocket — it "unsnaps" from the front),
+     then hides itself the instant it finishes, handing off to
+     .wallet-flap-rest — the original, untouched path painted in its
+     original position (behind the pocket, behind the money). At rest
+     both are identical, so the handoff is invisible. */
+  .wallet-flap-fold,
+  .wallet-flap-rest {
+    transform-origin: 173px 218px;
+    transform-box: view-box;
+  }
+
+  .wallet-flap-fold {
+    animation: flapHandoffOut 1ms linear 440ms forwards;
+  }
+
+  .wallet-flap-rest {
+    opacity: 0;
+    animation: flapHandoffIn 1ms linear 440ms forwards;
+  }
+
+  .joint-bottom {
+    transform-origin: 173px 218px;
+    transform-box: view-box;
+    animation: jointBottom 300ms cubic-bezier(0.3, 0.8, 0.35, 1) 0ms both;
+  }
+
+  .joint-mid {
+    transform-origin: 173px 186.56px;
+    transform-box: view-box;
+    animation: jointMid 300ms cubic-bezier(0.3, 0.8, 0.35, 1) 70ms both;
+  }
+
+  .joint-top {
+    transform-origin: 173px 155.16px;
+    transform-box: view-box;
+    animation: jointTop 300ms cubic-bezier(0.3, 0.8, 0.35, 1) 140ms both;
+  }
+
+  /* Plain 2D rotate() rather than rotateX()/perspective(): nested 3D
+     transforms don't reliably compound across nested SVG elements in
+     most browsers (each level tends to flatten independently, which
+     is what made the flap vanish). 2D rotation composes predictably
+     through the chain and, rotating a full 180° about the shared
+     bottom hinge, still reads as "folded down flat over the pocket"
+     to start, since that maps the flap's span to directly overlap the
+     pocket below the hinge line. */
+  @keyframes jointBottom {
+    0% {
+      transform: rotate(180deg);
+    }
+    100% {
+      transform: rotate(0deg);
+    }
+  }
+
+  @keyframes jointMid {
+    0% {
+      transform: rotate(45deg);
+    }
+    100% {
+      transform: rotate(0deg);
+    }
+  }
+
+  @keyframes jointTop {
+    0% {
+      transform: rotate(25deg);
+    }
+    100% {
+      transform: rotate(0deg);
+    }
+  }
+
+  @keyframes flapHandoffOut {
+    to {
+      opacity: 0;
+    }
+  }
+
+  @keyframes flapHandoffIn {
+    to {
+      opacity: 1;
+    }
+  }
+
+  /* ---------------- coin drop animation ------------------------------ */
+
+  /* Coins/bills start invisible well above the wallet, then fall once
+     the flap has opened. Each group defines --drop-end: how far past
+     its original artwork position it travels, so the coins finish
+     down inside the pocket rather than floating above it. These groups
+     are painted BEFORE the pocket front, so it occludes them on
+     arrival — they read as dropping into the pocket. */
+  .coin-drop {
+    opacity: 0;
+    animation: coinDrop 700ms cubic-bezier(0.3, 0.75, 0.5, 1) forwards;
+  }
+
+  @keyframes coinDrop {
+    0% {
+      opacity: 0;
+      transform: translateY(calc(var(--drop-end, 0px) - 190px));
+    }
+    25% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(var(--drop-end, 0px));
+    }
+  }
+
+  /* ---------------- primary button ---------------------------------- */
+
+  .primary-button {
+    position: absolute;
+    width: 353px;
+    height: 48px;
+    left: calc(50% - 176.5px);
+    top: 784px;
+    background: var(--color-red);
+    border: none;
+    border-radius: 999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 20px;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 140%;
+    color: #ffffff;
+    cursor: pointer;
+  }
+
+  .primary-button:hover,
+  .primary-button:active {
+    background: #b10000;
+  }
+</style>
+</head>
+<body>
+  <div class="frame">
+    <!-- Status bar -->
+    <div class="status-bar">
+      <span class="time">9:41</span>
+      <div class="status-icons">
+        <svg width="18" height="12" viewBox="0 0 18 12" fill="none">
+          <rect x="0" y="7" width="3" height="5" rx="0.5" fill="#000000" />
+          <rect x="4.5" y="5" width="3" height="7" rx="0.5" fill="#000000" />
+          <rect x="9" y="3" width="3" height="9" rx="0.5" fill="#000000" />
+          <rect x="13.5" y="0" width="3" height="12" rx="0.5" fill="#000000" />
+        </svg>
+        <svg width="16" height="12" viewBox="0 0 16 12" fill="none">
+          <path d="M8 10.5C8.69 10.5 9.25 9.94 9.25 9.25C9.25 8.56 8.69 8 8 8C7.31 8 6.75 8.56 6.75 9.25C6.75 9.94 7.31 10.5 8 10.5Z" fill="#000000"/>
+          <path d="M8 6C9.66 6 11.16 6.64 12.29 7.68L11.24 8.73C10.4 7.96 9.26 7.5 8 7.5C6.74 7.5 5.6 7.96 4.76 8.73L3.71 7.68C4.84 6.64 6.34 6 8 6Z" fill="#000000"/>
+          <path d="M8 2C10.76 2 13.26 3.11 15.07 4.9L14.02 5.95C12.46 4.41 10.34 3.5 8 3.5C5.66 3.5 3.54 4.41 1.98 5.95L0.93 4.9C2.74 3.11 5.24 2 8 2Z" fill="#000000"/>
+        </svg>
+        <svg width="25" height="12" viewBox="0 0 25 12" fill="none">
+          <rect x="0.5" y="0.5" width="21" height="11" rx="2.5" stroke="#000000" opacity="0.35"/>
+          <rect x="2" y="2" width="18" height="8" rx="1.5" fill="#000000"/>
+          <rect x="23" y="4" width="1.5" height="4" rx="0.75" fill="#000000" opacity="0.4"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Nav header: close (X) + overflow menu (...) -->
+    <div class="nav-header">
+      <div class="nav-side leading">
+        <button class="icon-button" id="closeButton" aria-label="Close">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M4.4 4.4L19.6 19.6M19.6 4.4L4.4 19.6" stroke="#CC0000" stroke-width="2.2" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+      <div class="nav-side center"></div>
+      <div class="nav-side trailing">
+        <button class="icon-button" id="moreButton" aria-label="More options">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <circle cx="5" cy="12" r="2" fill="#CC0000"/>
+            <circle cx="12" cy="12" r="2" fill="#CC0000"/>
+            <circle cx="19" cy="12" r="2" fill="#CC0000"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Title + subhead -->
+    <div class="content-heading">
+      <h1>Return completed</h1>
+      <p>We've sent a refund for <span id="itemCount">2</span> items</p>
+    </div>
+
+    <!-- Wallet illustration (exact asset exported from Figma) -->
+    <div class="illustration">
+      <svg width="360" height="360" viewBox="0 0 360 360" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <!-- Three horizontal "joints" for the folding flap: top band
+               (nearest the true hinge), mid band, bottom band (nearest
+               the snap/pocket). Padded a couple px beyond the flap's
+               bbox (x 78.05–267.89, y 123.75–217.97) so edges/corners
+               aren't clipped mid-curve. -->
+          <clipPath id="flap-band-top">
+            <rect x="70" y="120" width="205" height="35.4" />
+          </clipPath>
+          <clipPath id="flap-band-mid">
+            <rect x="70" y="155.16" width="205" height="31.4" />
+          </clipPath>
+          <clipPath id="flap-band-bottom">
+            <rect x="70" y="186.56" width="205" height="35.4" />
+          </clipPath>
+        </defs>
+        <!-- Top flap, resting copy (revealed once the fold completes) -->
+        <path class="wallet-flap-rest" d="M110.167 123.75H235.771C253.501 123.75 267.891 138.22 267.891 156.05V217.969H78.0469V156.05C78.0469 138.22 92.4365 123.75 110.167 123.75Z" fill="#7A440E"/>
+        <g class="coin-drop" style="animation-delay: 440ms; --drop-end: 0px">
+          <path d="M255.234 194.062H100.547V293.906H255.234V194.062Z" fill="#738033"/>
+          <path d="M266.484 182.812H111.797V282.656H266.484V182.812Z" fill="#89993D"/>
+          <path d="M277.734 171.562H123.047V271.406H277.734V171.562Z" fill="#A1B347"/>
+          <path d="M266.484 260.156V182.812H134.297V260.156H266.484Z" fill="#B2C74F"/>
+          <path d="M200.799 254.531C217.885 254.531 231.736 239.736 231.736 221.484C231.736 203.233 217.885 188.438 200.799 188.438C183.713 188.438 169.861 203.233 169.861 221.484C169.861 239.736 183.713 254.531 200.799 254.531Z" fill="#A1B347"/>
+          <path d="M268.242 234.492C271.634 234.492 274.85 235.244 277.734 236.588V271.406H250.966C247.705 267.502 245.742 262.477 245.742 256.992C245.742 244.566 255.816 234.492 268.242 234.492ZM133.594 234.492C146.02 234.492 156.094 244.566 156.094 256.992C156.094 262.477 154.131 267.502 150.87 271.406H123.047V237.114C126.193 235.442 129.782 234.492 133.594 234.492ZM151.954 171.562C154.561 175.235 156.094 179.724 156.094 184.57C156.094 196.997 146.02 207.07 133.594 207.07C129.782 207.07 126.193 206.12 123.047 204.447V171.562H151.954ZM277.734 171.562V204.974C274.85 206.318 271.634 207.07 268.242 207.07C255.816 207.07 245.742 196.997 245.742 184.57C245.742 179.724 247.275 175.235 249.882 171.562H277.734Z" fill="#A1B347"/>
+        </g>
+
+        <!-- Falling coins: painted before the flap so they land INSIDE
+             the pocket (the flap draws over them as they settle). -->
+        <g class="coin-drop" style="animation-delay: 660ms; --drop-end: 105px">
+          <path d="M163.24 194.608H170.472V145.703H163.24V194.608Z" fill="#D7C9C4"/>
+          <path d="M163.434 194.624C176.188 194.624 186.528 183.673 186.528 170.163C186.528 156.654 176.188 145.703 163.434 145.703C150.679 145.703 140.339 156.654 140.339 170.163C140.339 183.673 150.679 194.624 163.434 194.624Z" fill="#D7C9C4"/>
+          <path d="M169.78 194.624C182.535 194.624 192.875 183.673 192.875 170.163C192.875 156.654 182.535 145.703 169.78 145.703C157.025 145.703 146.686 156.654 146.686 170.163C146.686 183.673 157.025 194.624 169.78 194.624Z" fill="#E6DBD8"/>
+          <path d="M169.78 191.651C180.982 191.651 190.062 182.03 190.062 170.163C190.062 158.296 180.982 148.676 169.78 148.676C158.579 148.676 149.498 158.296 149.498 170.163C149.498 182.03 158.579 191.651 169.78 191.651Z" fill="#D7C9C4"/>
+        </g>
+        <g class="coin-drop" style="animation-delay: 700ms; --drop-end: 152px">
+          <path d="M200.061 144.369H207.293V95.4639H200.061V144.369Z" fill="#D7C9C4"/>
+          <path d="M200.254 144.369C213.009 144.369 223.348 133.418 223.348 119.908C223.348 106.399 213.009 95.4478 200.254 95.4478C187.499 95.4478 177.159 106.399 177.159 119.908C177.159 133.418 187.499 144.369 200.254 144.369Z" fill="#D7C9C4"/>
+          <path d="M206.601 144.369C219.355 144.369 229.695 133.418 229.695 119.908C229.695 106.399 219.355 95.4478 206.601 95.4478C193.846 95.4478 183.506 106.399 183.506 119.908C183.506 133.418 193.846 144.369 206.601 144.369Z" fill="#E6DBD8"/>
+          <path d="M206.601 141.396C217.802 141.396 226.883 131.776 226.883 119.908C226.883 108.041 217.802 98.4209 206.601 98.4209C195.399 98.4209 186.318 108.041 186.318 119.908C186.318 131.776 195.399 141.396 206.601 141.396Z" fill="#D7C9C4"/>
+        </g>
+        <g class="coin-drop" style="animation-delay: 740ms; --drop-end: 128px">
+          <path d="M192.056 165.325H197.15V130.932H192.056V165.325Z" fill="#AD6926"/>
+          <path d="M192.201 165.325C201.175 165.325 208.45 157.626 208.45 148.129C208.45 138.631 201.175 130.932 192.201 130.932C183.228 130.932 175.953 138.631 175.953 148.129C175.953 157.626 183.228 165.325 192.201 165.325Z" fill="#AD6926"/>
+          <path d="M196.668 165.325C205.642 165.325 212.916 157.625 212.916 148.128C212.916 138.631 205.642 130.932 196.668 130.932C187.694 130.932 180.42 138.631 180.42 148.128C180.42 157.625 187.694 165.325 196.668 165.325Z" fill="#C78444"/>
+          <path d="M196.668 163.075C204.461 163.075 210.779 156.384 210.779 148.129C210.779 139.874 204.461 133.183 196.668 133.183C188.875 133.183 182.558 139.874 182.558 148.129C182.558 156.384 188.875 163.075 196.668 163.075Z" fill="#AD6926"/>
+        </g>
+        <g class="coin-drop" style="animation-delay: 820ms; --drop-end: 175px">
+          <path d="M148.309 112.644H153.403V78.251H148.309V112.644Z" fill="#AD6926"/>
+          <path d="M148.454 112.644C157.428 112.644 164.702 104.945 164.702 95.4479C164.702 85.9506 157.428 78.2515 148.454 78.2515C139.481 78.2515 132.206 85.9506 132.206 95.4479C132.206 104.945 139.481 112.644 148.454 112.644Z" fill="#AD6926"/>
+          <path d="M152.921 112.644C161.895 112.644 169.169 104.945 169.169 95.4479C169.169 85.9506 161.895 78.2515 152.921 78.2515C143.947 78.2515 136.673 85.9506 136.673 95.4479C136.673 104.945 143.947 112.644 152.921 112.644Z" fill="#C78444"/>
+          <path d="M152.921 110.395C160.714 110.395 167.032 103.703 167.032 95.4484C167.032 87.1937 160.714 80.502 152.921 80.502C145.128 80.502 138.811 87.1937 138.811 95.4484C138.811 103.703 145.128 110.395 152.921 110.395Z" fill="#AD6926"/>
+        </g>
+        <g class="coin-drop" style="animation-delay: 780ms; --drop-end: 198px">
+          <path d="M231.348 83.3937H235.446V55.6865H231.348V83.3937Z" fill="#D7C9C4"/>
+          <path d="M231.462 83.3932C238.687 83.3932 244.544 77.1907 244.544 69.5396C244.544 61.8885 238.687 55.686 231.462 55.686C224.237 55.686 218.38 61.8885 218.38 69.5396C218.38 77.1907 224.237 83.3932 231.462 83.3932Z" fill="#D7C9C4"/>
+          <path d="M235.063 83.3932C242.288 83.3932 248.145 77.1907 248.145 69.5396C248.145 61.8885 242.288 55.686 235.063 55.686C227.838 55.686 221.98 61.8885 221.98 69.5396C221.98 77.1907 227.838 83.3932 235.063 83.3932Z" fill="#E6DBD8"/>
+          <path d="M235.061 80.7415C240.91 80.7415 245.652 75.7263 245.652 69.5397C245.652 63.3531 240.91 58.3379 235.061 58.3379C229.212 58.3379 224.47 63.3531 224.47 69.5397C224.47 75.7263 229.212 80.7415 235.061 80.7415Z" fill="#D7C9C4"/>
+        </g>
+
+        <!-- Pocket front (static) -->
+        <path d="M78.0469 216.914H141.68V314.648H110.185C92.4446 314.648 78.0469 300.231 78.0469 282.468V216.914Z" fill="#7A440E"/>
+        <path d="M100.547 216.914H287.578V282.468C287.578 300.231 273.215 314.648 255.517 314.648H132.608C114.91 314.648 100.547 300.231 100.547 282.468V216.914Z" fill="#AD6926"/>
+        <path d="M194.034 259.863C198.306 259.863 201.769 256.4 201.769 252.128C201.769 247.857 198.306 244.394 194.034 244.394C189.763 244.394 186.3 247.857 186.3 252.128C186.3 256.4 189.763 259.863 194.034 259.863Z" fill="#FFC957"/>
+
+        <!-- Top flap, folding copy: painted over the pocket front so it
+             unsnaps from the FRONT, then hands off to the resting copy.
+             Nested joints (bottom → mid → top), each hinging at its own
+             boundary and inheriting its parent's rotation, so the crease
+             straightens seamlessly from the snap up to the tip. -->
+        <g class="wallet-flap-fold">
+          <g class="joint-bottom">
+            <path clip-path="url(#flap-band-bottom)" d="M110.167 123.75H235.771C253.501 123.75 267.891 138.22 267.891 156.05V217.969H78.0469V156.05C78.0469 138.22 92.4365 123.75 110.167 123.75Z" fill="#7A440E"/>
+            <g class="joint-mid">
+              <path clip-path="url(#flap-band-mid)" d="M110.167 123.75H235.771C253.501 123.75 267.891 138.22 267.891 156.05V217.969H78.0469V156.05C78.0469 138.22 92.4365 123.75 110.167 123.75Z" fill="#7A440E"/>
+              <g class="joint-top">
+                <path clip-path="url(#flap-band-top)" d="M110.167 123.75H235.771C253.501 123.75 267.891 138.22 267.891 156.05V217.969H78.0469V156.05C78.0469 138.22 92.4365 123.75 110.167 123.75Z" fill="#7A440E"/>
+              </g>
+            </g>
+          </g>
+        </g>
+
+        <path d="M311.912 306.867H263.955V314.549H311.912V306.867Z" fill="#E6DBD8"/>
+        <path d="M311.912 291.503H263.955V299.185H311.912V291.503Z" fill="#E6DBD8"/>
+        <path d="M311.912 276.139H263.955V283.821H311.912V276.139Z" fill="#E6DBD8"/>
+        <path d="M316.671 299.185H268.714V306.867H316.671V299.185Z" fill="#D7C9C4"/>
+        <path d="M305.401 283.821H257.444V291.503H305.401V283.821Z" fill="#D7C9C4"/>
+        <path d="M262.231 314.533H269.464V265.628H262.231V314.533Z" fill="#D7C9C4"/>
+        <path d="M255.836 314.533C268.591 314.533 278.93 303.582 278.93 290.073C278.93 276.563 268.591 265.612 255.836 265.612C243.081 265.612 232.741 276.563 232.741 290.073C232.741 303.582 243.081 314.533 255.836 314.533Z" fill="#7A440E"/>
+        <path d="M262.425 314.533C275.18 314.533 285.519 303.582 285.519 290.073C285.519 276.563 275.18 265.612 262.425 265.612C249.67 265.612 239.33 276.563 239.33 290.073C239.33 303.582 249.67 314.533 262.425 314.533Z" fill="#D7C9C4"/>
+        <path d="M268.774 314.533C281.529 314.533 291.869 303.582 291.869 290.073C291.869 276.563 281.529 265.612 268.774 265.612C256.02 265.612 245.68 276.563 245.68 290.073C245.68 303.582 256.02 314.533 268.774 314.533Z" fill="#E6DBD8"/>
+        <path d="M268.774 311.56C279.976 311.56 289.056 301.94 289.056 290.072C289.056 278.205 279.976 268.585 268.774 268.585C257.573 268.585 248.492 278.205 248.492 290.072C248.492 301.94 257.573 311.56 268.774 311.56Z" fill="#D7C9C4"/>
+      </svg>
+    </div>
+
+    <!-- Description -->
+    <p class="description">
+      Refunds typically take 3-5 days to appear on your account.
+    </p>
+
+    <!-- Refund summary card -->
+    <div class="refund-card">
+      <div class="refund-card__top">
+        <div class="refund-card__row">
+          <span class="refund-card__label">Final refund</span>
+          <span class="refund-card__amount" id="refundAmount">$20.00</span>
+        </div>
+        <div class="refund-card__payment">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M19.1663 15.4168C19.1663 16.1072 18.6067 16.6668 17.9163 16.6668H2.08301C1.39265 16.6668 0.833008 16.1072 0.833008 15.4168V4.5835C0.833008 3.89314 1.39265 3.3335 2.08301 3.3335H17.9163C18.6067 3.3335 19.1663 3.89314 19.1663 4.5835V15.4168Z" fill="#CC0000"/>
+            <path d="M3.33301 10.4165H5.83301V12.4998H3.33301V10.4165Z" fill="#FFC957"/>
+          </svg>
+          <span id="cardDescription">Card *1234</span>
+        </div>
+      </div>
+      <div class="refund-card__bottom">
+        <button class="link-button" id="viewRefundDetails">View refund details</button>
+      </div>
+    </div>
+
+    <!-- Primary CTA -->
+    <button class="primary-button" id="viewOrderDetails">View order details</button>
+  </div>
+
+<script>
+  // Return completed screen — demo wiring.
+  // Replace these handlers with real navigation/API calls when
+  // integrating into the actual app shell.
+
+  document.getElementById('closeButton').addEventListener('click', () => {
+    console.log('Close pressed');
+  });
+
+  document.getElementById('moreButton').addEventListener('click', () => {
+    console.log('More options pressed');
+  });
+
+  document.getElementById('viewRefundDetails').addEventListener('click', () => {
+    console.log('View refund details pressed');
+  });
+
+  document.getElementById('viewOrderDetails').addEventListener('click', () => {
+    console.log('View order details pressed');
+  });
+
+  /**
+   * Populates the screen with return/refund data. Call this from the
+   * real app shell once order data is available.
+   */
+  function renderReturnCompleted({ itemCount, refundAmount, cardDescription }) {
+    document.getElementById('itemCount').textContent = itemCount;
+    document.getElementById('refundAmount').textContent = refundAmount;
+    document.getElementById('cardDescription').textContent = cardDescription;
+  }
+
+  // Demo data — matches the Figma frame.
+  renderReturnCompleted({
+    itemCount: 2,
+    refundAmount: '$20.00',
+    cardDescription: 'Card *1234',
+  });
+</script>
+</body>
+</html>
