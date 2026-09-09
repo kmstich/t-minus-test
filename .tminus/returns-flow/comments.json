@@ -1,0 +1,28 @@
+{
+  "review": "Returns Flow",
+  "updatedAt": "2026-09-09T22:04:57.305Z",
+  "reviewConfig": {
+    "title": "Returns Flow",
+    "tzero": "2026-09-15T00:00:00.000Z",
+    "brief": "Focus areas: Test",
+    "briefAreas": [
+      "Test"
+    ],
+    "url": ""
+  },
+  "comments": [
+    {
+      "id": "6c0245de-c0e9-45d9-b3e7-5d66dd1ad931",
+      "author": "Lori.",
+      "body": "This doesn't make sense.",
+      "tags": [],
+      "resolved": false,
+      "createdAt": "2026-09-09T22:04:56.102Z",
+      "updatedAt": "2026-09-09T22:04:56.102Z",
+      "replies": [],
+      "x": 0.552026286966046,
+      "y": 0.23936507936507936
+    }
+  ],
+  "votes": {}
+}
