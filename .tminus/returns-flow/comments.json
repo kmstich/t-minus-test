@@ -1,6 +1,6 @@
 {
   "review": "Returns Flow",
-  "updatedAt": "2026-09-09T22:04:57.305Z",
+  "updatedAt": "2026-09-09T22:19:42.753Z",
   "reviewConfig": {
     "title": "Returns Flow",
     "tzero": "2026-09-15T00:00:00.000Z",
@@ -24,5 +24,7 @@
       "y": 0.23936507936507936
     }
   ],
-  "votes": {}
+  "votes": {
+    "5532332e-5e48-4634-9839-aa938d13ed77": "go"
+  }
 }
